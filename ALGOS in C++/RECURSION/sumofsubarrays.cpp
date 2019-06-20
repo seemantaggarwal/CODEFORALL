@@ -1,9 +1,8 @@
 #include<iostream>
 #include<cstring>
 using namespace std;
-int subarrsum(int arr[], int n, int size, int max=0)
+int subarrsum(int arr[], int n, int size, int max=0, int beg=0, int end=0)
 {
-	int beg, end;
 	if(size==n)
 	{
 		for(int z=beg; z<=end; ++z)
@@ -25,7 +24,7 @@ int subarrsum(int arr[], int n, int size, int max=0)
 			}
 		}
 	}
-	return subarrsum(arr, n, size+1 , max);
+	return subarrsum(arr, n, size+1 , max, beg, end);
 }
 int main()
 {
