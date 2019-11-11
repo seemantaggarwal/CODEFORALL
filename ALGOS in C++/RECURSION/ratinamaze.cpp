@@ -1,91 +1,89 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
-void mazesolve(int board[][100], int n, int row, int col, int ans[][100])
+bool ratinamaze(int maze[][10], int soln[][10], int i, int j, int n, int m)
 {
-	if(row==n-1 && col==n-1)
+	if(i==n-1 && j==m-1)
 	{
-		ans[row][col]=1;
+		soln[i][j]=1;
+		for (int i = 0; i < n; ++i)
+		{
+			/* code */
+			for (int j = 0; j < m; ++j)
+			{
+				/* code */
+				cout<<soln[i][j]<<" ";
+			}
+			cout<<endl;
+		}
+		cout<<endl;
+		return true;
+	}
+	if(i>n || j>n)
+	{
+		return false;
+	}
+	if(maze[i][j]==-1)
+	{
+		return false;
+	}
+	soln[i][j]=1;
+	bool rightsuccess=ratinamaze(maze,soln,i+1,j,n,m);
+	bool downsucc=ratinamaze(maze,soln,i,j+1,n,m);
+	soln[i][j]=0;
+	if(rightsuccess || downsucc)
+		return true;
+	return false;
+}
+/*int countpaths(int maze[][10],int n, int m, int i, int j )
+{
+	if(i==n-1 && j==m-1)
+	{
+		cout<<
+	}
+}
+
+void printpath(int maze[][10], int m , int n, int i , int j)
+{
+	if(i==n-1 && j==m-1)
+	{
+		for(int i=0; i<n;++i)
+		{
+			for (int j = 0; j < m; ++j)
+			{
+				/* code */
+				/*cout<<maze[i][j];
+			}
+		}
 		return;
 	}
-	else if(row==n-1)
+	if(maze[i+1][j]!=-1 && maze[i+2][j]!=-1 && maze[i+1][j+1]!=-1 && i+1<=n-1)
 	{
-		if(board[row][col+1]!=1)
-		{
-			mazesolve(board, n, row-1, col+1,ans);
-			ans[row][col]=0;
-		}
-		
-		else
-		{
-		mazesolve(board, n, row, col+1,ans);
-		ans[row][col]=1;
-		}
-	}
-	else if(col==n-1)
-	{
-		if(board[row+1][col]!=1)
-		{
-			mazesolve(board, n, row+1, col-1,ans);
-			ans[row][col]=0;
-		}
-		else
-		{
-		mazesolve(board, n, row+1, col, ans);
-		ans[row][col]=1;
-		}
-	}
-	else if(board[row+1][col]==1)
-	{
-		mazesolve(board, n,  row+1, col, ans);
-		ans[row][col]=1;
-	}
-	else if(board[row][col+1]==1)
-	{
-		mazesolve(board, n,  row, col+1, ans);
-		ans[row][col]=1;
-	}
+		maze[i+1][j]=1;
+		printpath(maze,m,n,i+1,j);	
 
-}
-void inputmat(int board[][100], int n)
-{
-	for(int i=0; i<n; ++i)
-	{
-		for(int j=0;j<n;j++)
-		{
-			cin>>board[i][j];
-		}
 	}
-}
-void inputansmat(int board[][100], int n)
-{
-	for(int i=0; i<n; ++i)
+	else if(j+1<=m-1)
 	{
-		for(int j=0;j<n;j++)
-		{
-			board[i][j]=0;
-		}
-		cout<<endl;
+		printpath(maze,m,n,i,j+1);	
 	}
-}
-void outputmat(int mat[][100],int m, int n)
+}*/
+int  main(int argc, char const *argv[])
 {
-	for(int r=0; r<m; ++r)
-	{
-		for(int c=0;c<n;++c)
-		{
-			cout<<mat[r][c];
-		}
-		cout<<endl;
-	}
-}
-int main()
-{
+	/* code */
+	int maze[10][10];
 	int n;
 	cin>>n;
-	int board[100][100];
-	inputmat(board, n);
-	int ans[100][100];
-	inputansmat(ans, n);
-	mazesolve(board, n, 0 , 0, ans);
-	outputmat(ans,n,n);
+	int m;
+	cin>>m;
+	for(int i=0; i<n;++i)
+	{
+		for (int j = 0; j < m; ++j)
+		{
+			/* code */
+			cin>>maze[i][j];
+		}
+	}
+	int soln[10][10]={0};
+	bool ans = ratinamaze(maze,soln,0,0,n,m);
+	return 0;
 }
