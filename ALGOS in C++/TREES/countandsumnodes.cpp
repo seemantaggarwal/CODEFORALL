@@ -26,44 +26,29 @@ node *buildtree()
 	root->right=buildtree();
 	return root;
 }
-void preorder(node *root)
+int countnodes(node *root)
 {
 	if(root==NULL)
 	{
-		return;
+		return 0;
 	}
-	cout<<root->data<<" ";
-	preorder(root->left);
-	preorder(root->right);
+	return 1 + countnodes(root->left) + countnodes(root->right);
 }
-void inorder(node *root)
+int sumnodes(node *root)
 {
 	if(root==NULL)
 	{
-		return;
+		return 0;
 	}
-	inorder(root->left);
-	cout<<root->data<<" ";
-	inorder(root->right);
-}
-void postorder(node *root)
-{
-	if(root==NULL)
-	{
-		return;
-	}
-	postorder(root->left);
-	postorder(root->right);
-	cout<<root->data<<" ";
+	return root->data + sumnodes(root->left) + sumnodes(root->right;
 }
 int main(int argc, char const *argv[])
 {
 	/* code */
 	node *root=buildtree();
-	preorder(root);
-	cout<<endl;
-	postorder(root);
-	cout<<endl;
-	inorder(root);
+	int totalnodes=countnodes(root);
+	cout<<totalnodes<<endl;
+	int sum=sumnodes(root);
+	cout<<sum;
 	return 0;
 }

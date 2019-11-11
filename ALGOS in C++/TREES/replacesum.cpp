@@ -1,5 +1,7 @@
 #include <iostream>
 using namespace std;
+#include<iostream>
+using namespace std;
 class node
 {
 public:
@@ -26,44 +28,25 @@ node *buildtree()
 	root->right=buildtree();
 	return root;
 }
-void preorder(node *root)
+int replacesum(node *root)
 {
 	if(root==NULL)
 	{
 		return;
 	}
-	cout<<root->data<<" ";
-	preorder(root->left);
-	preorder(root->right);
-}
-void inorder(node *root)
-{
-	if(root==NULL)
+	if(root->left == NULL && root->right==NULL)
 	{
-		return;
+		return root->data;
 	}
-	inorder(root->left);
-	cout<<root->data<<" ";
-	inorder(root->right);
-}
-void postorder(node *root)
-{
-	if(root==NULL)
-	{
-		return;
-	}
-	postorder(root->left);
-	postorder(root->right);
-	cout<<root->data<<" ";
+	int leftsum = replacesum(root->left);
+	int rightsum = replacesum(root->right);
+	int temp = root->data;
+	root->data = leftsum + rightsum;
+	return temp + root->data;
 }
 int main(int argc, char const *argv[])
 {
 	/* code */
 	node *root=buildtree();
-	preorder(root);
-	cout<<endl;
-	postorder(root);
-	cout<<endl;
-	inorder(root);
 	return 0;
 }

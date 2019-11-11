@@ -26,44 +26,45 @@ node *buildtree()
 	root->right=buildtree();
 	return root;
 }
-void preorder(node *root)
+int height(node *root)
+{
+	if(root==NULL)
+	{
+		return 0;
+	}
+	int hs=height(root->left);
+	int rs=height(root->right);
+	return max(rs,hs) + 1;
+}
+void printklevel(node *root, int k)
 {
 	if(root==NULL)
 	{
 		return;
 	}
-	cout<<root->data<<" ";
-	preorder(root->left);
-	preorder(root->right);
-}
-void inorder(node *root)
-{
-	if(root==NULL)
+	if(k==1)
 	{
+		cout<<root->data<<" ";
 		return;
 	}
-	inorder(root->left);
-	cout<<root->data<<" ";
-	inorder(root->right);
+	printklevel(root->left, k-1);
+	printklevel(root->right, k-1);
+	return;
+
 }
-void postorder(node *root)
+void printalllevel(node *root)
 {
-	if(root==NULL)
+	int h=height(root);
+	for(int i=1;i<h;++i)
 	{
-		return;
+		printklevel(root,i);
 	}
-	postorder(root->left);
-	postorder(root->right);
-	cout<<root->data<<" ";
 }
-int main(int argc, char const *argv[])
+int main(int argc, char const *argv[]) 
 {
 	/* code */
 	node *root=buildtree();
-	preorder(root);
-	cout<<endl;
-	postorder(root);
-	cout<<endl;
-	inorder(root);
+	int h=height(root);
+	printklevel(root, h);
 	return 0;
 }
