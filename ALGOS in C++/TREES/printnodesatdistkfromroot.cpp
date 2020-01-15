@@ -1,4 +1,4 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 class node
 {
@@ -26,37 +26,26 @@ node *buildtree()
 	root->right=buildtree();
 	return root;
 }
-class Pair
+void nodesatdistk(node *root, int k)
 {
-public:
-	int height;
-	bool balance;
-};
-Pair isheightbalace(node *root)
-{
-	Pair p;
-	if(root == NULL)
+	if(node==NULL || k<0)
 	{
-		p.balance=true;
-		p.height=0;
-		return p;
+		return;
 	}
-	Pair lt = isheightbalace(root->left);
-	Pair rt = isheightbalace(root->right);
-	p.height = max(lt.height, rt.height)+1;
-	if(abs(lt.height - rt.height)<=1 && lt.balance && rt.balance) 
+	if(k==0)
 	{
-		p.balance=true;
+		cout<<root->data;
+		return;
 	}
-	else
-	{
-		p.balance=false;
-	}
-	return p;
+	nodesatdistk(root->left, k-1);
+	nodesatdistk(root->right, k-1);
 }
 int main(int argc, char const *argv[])
 {
 	/* code */
 	node *root=buildtree();
+	int k;
+	cin>>k;
+	nodesatdistk(root, k);
 	return 0;
 }
