@@ -14,7 +14,7 @@ int main()
 	int sum;
 	cin>>sum;
 	int low = 0;
-	int high = n;
+	int high = n-1;
 	while(low<high)
 	{
 		if(arr[low]+arr[high]== sum)
