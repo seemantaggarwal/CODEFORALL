@@ -1,37 +1,37 @@
 #include<iostream>
-#include<stack>
+#include <queue>
+#include <stack>
 using namespace std;
-int main()
+int main(int argc, char const *argv[])
 {
-	int arr[100];
+	/* code */
 	int n;
 	cin>>n;
-	for(int i=0; i<n; ++i)
+	int arr[n];
+	for (int i = 0; i < n; ++i)
 	{
+		/* code */
 		cin>>arr[i];
 	}
-	int arr2[n];
+	int ans[n];
 	stack<int> s;
-	s.push(0);
-	arr2[0]=1;
-	for(int i=1; i<n; ++i)
+	for (int i = 1; i < n; ++i)
 	{
-		
-		while(s.empty()==false && arr[s.top()]<=arr[i])
+		/* code */
+		int curprice = arr[i];
+		while(!s.empty() && arr[s.top()]<curprice)
 		{
 			s.pop();
 		}
-		if(s.empty())
-		{
-			arr2[i]=i+1;
-		}
-		else
-			arr2[i]=i-s.top();
+		int betterday = s.empty() ? 0 : s.top();
+		int span = i - betterday;
+		ans[i] = span;
 		s.push(i);
 	}
-	for(int i=0; i<n; ++i)
+	for (int i = 0; i < n; ++i)
 	{
-		cout<<arr[i]<<"-->"<<arr2[i]<<endl;
+		/* code */
+		cout<<ans[i];
 	}
-
+	return 0;
 }
