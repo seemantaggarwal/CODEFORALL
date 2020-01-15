@@ -1,4 +1,4 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 class node
 {
@@ -26,37 +26,25 @@ node *buildtree()
 	root->right=buildtree();
 	return root;
 }
-int replacesum(node *root)
+int heightofatree(node *root)
 {
 	if(root==NULL)
 	{
 		return 0;
 	}
-	if(root->left == NULL && root->right==NULL)
+	if(root->left==NULL && root->right == NULL)
 	{
-		return root->data;
+		return 1;
 	}
-	int leftsum = replacesum(root->left);
-	int rightsum = replacesum(root->right);
-	int temp = root->data;
-	root->data = leftsum + rightsum +root->data;
-	return root->data;
-}
-void inorder(node *root)
-{
-	if(root==NULL)
-	{
-		return;
-	}
-	inorder(root->left);
-	cout<<root->data<<" ";
-	inorder(root->right);
+	int rt = heightofatree(root->right);
+	int lt = heightofatree(root->left);
+	return max(lt,rt) +1;
 }
 int main(int argc, char const *argv[])
 {
 	/* code */
 	node *root=buildtree();
-	replacesum(root);
-	inorder(root);
+	int height = heightofatree(root);
+	cout<<height;
 	return 0;
 }

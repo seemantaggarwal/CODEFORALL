@@ -39,20 +39,37 @@ bstnode *build()
 	}
 	return root;
 }
-void inorder(bstnode *root)
+void inrange(bstnode *root, int lower, int upper)
 {
 	if(root==NULL)
 	{
 		return;
 	}
-	inorder(root->left);
-	cout<<root->data<<" ";
-	inorder(root->right);
+	if(root->data < lower)
+	{
+		inrange(root->right, lower, upper);
+	}
+	else if(root->data > upper)
+	{
+		inrange(root->left, lower, upper);
+	}
+	else
+	{
+		cout<<root->data<<" ";
+		inrange(root->right, lower, upper);
+		inrange(root->left, lower, upper);
+	}
+	return;
 }
 int main(int argc, char const *argv[])
 {
 	/* code */
 	bstnode *root = build();
-	inorder(root);
+	cout<<"enter range";
+	cout<<endl;
+	int u, l;
+	cin>>l>>u;
+	cout<<"in the range are:"<<endl;
+	inrange(root, l, u);
 	return 0;
 }
